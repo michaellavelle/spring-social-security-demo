@@ -17,11 +17,20 @@
 	</properties>
 	<repositories>
  		<repository>
-	        	<id>opensourceagility-snapshots</id>
+	        	<id>opensourceagility-releases</id>
 	        	<url>http://repo.opensourceagility.com/releases</url>
 	    	</repository>
+	    	<repository>
+    		<id>opensourceagility-snapshots</id>
+  				<url>http://repo.opensourceagility.com/snapshots</url>
+			</repository>
 	</repositories>
 	<dependencies>
+	 <dependency>
+        <groupId>org.springframework.social</groupId>
+        <artifactId>spring-social-hibernate-jpa</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+	</dependency>
 	<dependency>
 		<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
@@ -45,7 +54,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.9</version>
+			<version>1.2.12</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

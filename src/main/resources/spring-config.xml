@@ -109,19 +109,18 @@
 	<!-- Start Spring Social -->
 
  	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"/> 
-	   
- 	<!-- Transaction manager for a single JDBC DataSource -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource"><ref local="dataSource"/></property>
-	</bean>
-	  
+	
+	<!-- This component scan and import is for spring-social-hibernate-jpa -->   
+   <context:component-scan
+        base-package="org.springframework.social.connect.jpa.hibernate" />
+
+   <import resource="classpath:/spring-social-jpa-hibernate-config.xml" />
 
 	<bean class="org.springframework.social.connect.web.ProviderSignInController">
 		<constructor-arg value="${application.secureUrl}" />
 		<property name="signUpUrl" value="/signup" />
 		<property name="applicationUrl" value="${application.secureUrl}" />
 		<property name="postSignInUrl" value="/authenticate" />
-
 
 		<!-- relies on by-type autowiring for the other constructor-args -->
 	</bean>
@@ -135,8 +134,8 @@
 	</bean>
 
 	<bean id="usersConnectionRepository"
-		class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
-		<constructor-arg ref="dataSource" />
+		class="org.springframework.social.connect.jpa.JpaUsersConnectionRepository">
+		<constructor-arg ref="userConnectionDao" />
 		<constructor-arg ref="connectionFactoryRegistry" />
 		<constructor-arg ref="textEncryptor" />
 		<!-- Add this connection sign up if implicit local username generation 
@@ -146,7 +145,7 @@
 	</bean>
 
 	<bean
-		class="org.springframework.social.connect.jdbc.JdbcConnectionRepository"
+		class="org.springframework.social.connect.jpa.JpaConnectionRepository"
 		id="connectionRepository" factory-method="createConnectionRepository"
 		factory-bean="usersConnectionRepository" scope="request">
 		<constructor-arg value="#{request.userPrincipal.name}" />
