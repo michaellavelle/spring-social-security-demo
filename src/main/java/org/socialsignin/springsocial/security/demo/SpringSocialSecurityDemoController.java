@@ -2,6 +2,7 @@ package org.socialsignin.springsocial.security.demo;
 
 import java.util.Map;
 
+import org.socialsignin.springsocial.security.signin.AuthenticatedUserIdHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SpringSocialSecurityDemoController {
 
 	private String getAuthenticatedUserName() {
-		Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
-		return authentication == null ? null : authentication.getName();
+		return AuthenticatedUserIdHolder.getAuthenticatedUserId();
 	}
 
 	@RequestMapping("/")

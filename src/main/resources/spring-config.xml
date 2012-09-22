@@ -168,7 +168,7 @@
 			<value></value>
 		</property>
 		<property name="defaultAutoCommit">
-			<value>true</value>
+			<value>false</value>
 		</property>
 	</bean>
 
