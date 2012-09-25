@@ -1,6 +1,20 @@
 Spring Social Security Demo
 ===========================
 
+NB:  This is a fork of the <a href="https://github.com/socialsignin/spring-social-security-demo">
+spring-social-security-demo</a> application - the intention is to demonstrate how to customise Spring-Social-Security so it 
+creates local user accounts using a custom domain model and persistence mechanism.  The following modifications have been
+made to the default configuration of the original demo
+
+*  We are going to use Hibernate/JPA for the persistence of local domain model, 
+so JDBC ConnectionRepository is replaced with Hibernate/JPA version for consistency. 
+*  The "Signup" components from Spring-Social-Security have been excluded from the component scan, and custom classes created -
+User, UserConnectionSignUp, UserSignUpController, UserSignUpService, UserSpringSocialProfileFactory and registered
+as beans where appropriate.
+
+About this demo:
+----------------
+
 Simple Hello World Webapp demonstrating the <a href="https://github.com/socialsignin/spring-social-security">
 spring-social-security</a> module.
 
@@ -9,6 +23,18 @@ simply by ROLE_USER.
 
 Spring Security is configured with the SpringSocialSecurityAuthenticationFilter which ensures that users attempting to
 access a protected resource are prompted to connect with the relevant SaaS provider in order to authenticate.  
+
+Once authenticated, users confirm their chosen username, a account is created for them, and they can access the protected resource.
+
+Once a user has an account, they can login to the system any time by simply reconnecting with any of the providers
+they have previously connected with the app previously.
+
+Local user account creation is implemented using custom components and entities 
+to illustrate how Spring-Social-Security can be used with your own persistence mechanism/domain model
+(  User, UserConnectionSignUp, UserSignUpController, UserSignUpService, UserSpringSocialProfileFactory ).
+
+These custom classes allow Spring-Social-Security to hook into an existing or custom local user management
+system but wouldn't be required if the default persistence of Spring-Social-Security was used instead.
 
 Running the demo
 ----------------
