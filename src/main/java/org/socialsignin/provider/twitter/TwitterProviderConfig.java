@@ -15,19 +15,6 @@ public class TwitterProviderConfig extends AbstractProviderConfig<Twitter> {
 	@Autowired
 	private TwitterConnectInterceptor twitterConnectInterceptor;
 
-	
-	@Value("${twitter.consumerKey}")
-	private String twitterConsumerKey;
-
-	@Value("${twitter.consumerSecret}")
-	private String twitterConsumerSecret;
-
-	@Override
-	protected ConnectionFactory<Twitter> createConnectionFactory() {
-		return new TwitterConnectionFactory(
-				twitterConsumerKey, twitterConsumerSecret);
-	}
-
 	@Override
 	protected ConnectInterceptor<Twitter> getConnectInterceptor() {
 		return twitterConnectInterceptor;

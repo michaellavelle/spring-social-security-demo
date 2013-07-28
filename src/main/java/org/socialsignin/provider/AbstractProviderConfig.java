@@ -11,22 +11,16 @@ import org.springframework.social.connect.web.ConnectInterceptor;
 
 public abstract class AbstractProviderConfig<S> {
 
-	@Autowired
-	private ConnectionFactoryRegistry registry;
 	
 	@Autowired
 	@Qualifier("connectInterceptorList")
 	private ConnectInterceptorList connectInterceptorList;
 	
-	protected abstract ConnectionFactory<S> createConnectionFactory();
 	protected abstract ConnectInterceptor<S> getConnectInterceptor();
-	
-	
 	
 	@PostConstruct
 	public void register()
 	{
-		registry.addConnectionFactory(createConnectionFactory());
 		connectInterceptorList.add(getConnectInterceptor());
 
 	}
