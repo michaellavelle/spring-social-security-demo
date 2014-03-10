@@ -26,6 +26,10 @@
 		</property>
 	</bean>
 
+	<context:component-scan base-package="org.socialsignin.springsocial.security.demo.config.social" />
+	<context:component-scan base-package="org.socialsignin.springsocial.security.demo.config" />
+
+
 		<!-- Scan classpath for components, including our Social Security Configuration 
 		class -->
 	<context:component-scan base-package="org.socialsignin.springsocial.security" >
@@ -122,7 +126,6 @@
 	<bean class="org.springframework.social.connect.web.ProviderSignInController">
 		<constructor-arg value="${application.secureUrl}" />
 		<property name="signUpUrl" value="/signup" />
-		<property name="applicationUrl" value="${application.secureUrl}" />
 		<property name="postSignInUrl" value="/authenticate" />
 
 		<!-- relies on by-type autowiring for the other constructor-args -->
@@ -130,7 +133,6 @@
 
 	<bean class="org.springframework.social.connect.web.ConnectController">
 		<!-- relies on by-type autowiring for the constructor-args -->
-		<property name="applicationUrl" value="${application.secureUrl}" />
 
 		<property name="interceptors" ref="connectInterceptorList">
 		</property>
@@ -139,7 +141,7 @@
 	<bean id="usersConnectionRepository"
 		class="org.springframework.social.connect.jpa.JpaUsersConnectionRepository">
 		<constructor-arg ref="userConnectionDao" />
-		<constructor-arg ref="connectionFactoryRegistry" />
+		<constructor-arg ref="connectionFactoryLocator" />
 		<constructor-arg ref="textEncryptor" />
 		<!-- Add this connection sign up if implicit local username generation 
 			is to be used - ie. instead of sending user to a form to confirm their local 
